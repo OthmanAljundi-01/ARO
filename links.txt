@@ -1,0 +1,123 @@
+
+Azure RedHat OpenShift Documentation : 
+
+	https://learn.microsoft.com/en-us/azure/openshift/
+
+
+
+Azure RedHat OpenShift ARO-RP Github :
+
+	https://github.com/Azure/ARO-RP/tree/master
+
+
+
+Azure RedHat OpenShift Support Policy :
+
+	https://learn.microsoft.com/en-us/azure/openshift/support-policies-v4
+
+
+Azure RedHat OpenShift ARO-RP Validation :
+
+	https://github.com/Azure/ARO-RP/blob/master/pkg/validate/dynamic/dynamic.go#L36
+
+
+
+Azure RedHat OpenShift ARO-RP Cloud Erros :
+
+
+	https://github.com/Azure/ARO-RP/blob/aae3ca8030722a95eabc900a87edc46bf1ca9a86/pkg/api/error.go#L62
+
+
+
+Azure RedHat OpenShift ARO-RP Roadmap :
+
+	https://github.com/Azure/OpenShift/projects/1
+
+
+
+Network Endpoints/Ports that should be whitelisted for ARO Cluster :
+
+	https://learn.microsoft.com/en-us/azure/openshift/howto-restrict-egress
+	https://docs.openshift.com/container-platform/4.13/installing/install_config/configuring-firewall.html
+	https://docs.openshift.com/container-platform/4.13/installing/install_config/configuring-firewall.html#:~:text=your%20GCP%20account.-,Azure,-management.azure.com
+
+
+
+RedHat OpenShift Documentation :
+
+	https://docs.openshift.com/container-platform/4.11/welcome/index.html
+
+
+
+RedHat pull-secret :
+
+	https://console.redhat.com/openshift/install/azure/aro-provisioned
+
+
+
+Red Hat pull secret enables your cluster to access Red Hat container registries, along with other content such as operators :
+
+	https://operatorhub.io/
+
+
+
+RedHat Solutions :
+
+	https://access.redhat.com/solutions/
+
+
+############## Example of RedHat Solution Links ##############
+
+
+
+# How to migrate data between PVs in OpenShift 4 :
+
+	https://access.redhat.com/solutions/5794841
+
+
+# ARO and OpenShift supportability matrix :
+
+	https://access.redhat.com/solutions/6736881
+
+
+# How to make Cluster Autoscaler skip a node for scale down in OpenShift 4 :
+
+	https://access.redhat.com/solutions/6942971
+
+
+# SREMachineHealthCheckRemediationRateHigh in Azure Red Hat OpenShift (ARO) : 
+
+	https://access.redhat.com/solutions/6964603
+
+
+# How to register an ARO cluster in OCM
+
+	https://access.redhat.com/solutions/6526031
+
+
+# How to open a PROACTIVE case for patching or upgrading Red Hat OpenShift Container Platform 
+
+	https://access.redhat.com/solutions/3521621
+
+
+# how to get all resaources inside namespace :
+
+	https://access.redhat.com/solutions/3986301
+
+# Upgrade Path for OpenShift Cluster : (just change channel, current version and target version accordingly)
+
+	https://access.redhat.com/labs/ocpupgradegraph/update_path?channel=stable-4.10&arch=x86_64&is_show_hot_fix=false&current_ocp_version=4.10.40&target_ocp_version=4.10.54
+
+# Cluster AutoScaler Parameters :
+
+	https://docs.openshift.com/container-platform/4.9/machine_management/applying-autoscaling.html#cluster-autoscaler-cr_applying-autoscaling
+
+
+# AADSTS Error Reference Codes :
+
+	https://learn.microsoft.com/en-us/azure/active-directory/develop/reference-error-codes#aadsts-error-codes
+
+# unable to delete PVC Azure Disk as reclaim policy is retain and disk is stuck :
+
+	https://access.redhat.com/solutions/6540431
+

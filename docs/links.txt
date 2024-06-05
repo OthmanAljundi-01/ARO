@@ -1,41 +1,47 @@
 
-Azure RedHat OpenShift Documentation : 
+# Azure RedHat OpenShift Documentation : 
 
 	https://learn.microsoft.com/en-us/azure/openshift/
 
 
 
-Azure RedHat OpenShift ARO-RP Github :
+# Azure RedHat OpenShift ARO-RP Github :
 
 	https://github.com/Azure/ARO-RP/tree/master
 
 
 
-Azure RedHat OpenShift Support Policy :
+# Azure RedHat OpenShift Support Policy :
 
 	https://learn.microsoft.com/en-us/azure/openshift/support-policies-v4
 
 
-Azure RedHat OpenShift ARO-RP Validation :
+# Azure RedHat OpenShift ARO-RP Validation :
 
 	https://github.com/Azure/ARO-RP/blob/master/pkg/validate/dynamic/dynamic.go#L36
 
 
 
-Azure RedHat OpenShift ARO-RP Cloud Erros :
+# Azure RedHat OpenShift ARO-RP Cloud Erros :
 
 
 	https://github.com/Azure/ARO-RP/blob/aae3ca8030722a95eabc900a87edc46bf1ca9a86/pkg/api/error.go#L62
 
 
 
-Azure RedHat OpenShift ARO-RP Roadmap :
+# ARO Cluster Deny Assignment Rules :
+
+	https://github.com/Azure/ARO-RP/blob/master/pkg/cluster/deploybaseresources_additional.go#L22
+
+
+
+# Azure RedHat OpenShift ARO-RP Roadmap :
 
 	https://github.com/Azure/OpenShift/projects/1
 
 
 
-Network Endpoints/Ports that should be whitelisted for ARO Cluster :
+# Network Endpoints/Ports that should be whitelisted for ARO Cluster :
 
 	https://learn.microsoft.com/en-us/azure/openshift/howto-restrict-egress
 	https://docs.openshift.com/container-platform/4.13/installing/install_config/configuring-firewall.html
@@ -43,25 +49,25 @@ Network Endpoints/Ports that should be whitelisted for ARO Cluster :
 
 
 
-RedHat OpenShift Documentation :
+# RedHat OpenShift Documentation :
 
 	https://docs.openshift.com/container-platform/4.11/welcome/index.html
 
 
 
-RedHat pull-secret :
+# RedHat pull-secret :
 
 	https://console.redhat.com/openshift/install/azure/aro-provisioned
 
 
 
-Red Hat pull secret enables your cluster to access Red Hat container registries, along with other content such as operators :
+# Red Hat pull secret enables your cluster to access Red Hat container registries, along with other content such as operators :
 
 	https://operatorhub.io/
 
 
 
-RedHat Solutions :
+# RedHat Solutions :
 
 	https://access.redhat.com/solutions/
 
@@ -120,10 +126,5 @@ RedHat Solutions :
 # unable to delete PVC Azure Disk as reclaim policy is retain and disk is stuck :
 
 	https://access.redhat.com/solutions/6540431
-
-
-# ARO Cluster Deny Assignment Rules :
-
-	https://github.com/Azure/ARO-RP/blob/master/pkg/cluster/deploybaseresources_additional.go#L22
 
 

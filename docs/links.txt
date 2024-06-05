@@ -121,3 +121,9 @@ RedHat Solutions :
 
 	https://access.redhat.com/solutions/6540431
 
+
+# ARO Cluster Deny Assignment Rules :
+
+	https://github.com/Azure/ARO-RP/blob/master/pkg/cluster/deploybaseresources_additional.go#L22
+
+

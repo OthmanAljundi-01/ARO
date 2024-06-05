@@ -1,0 +1,381 @@
+
+
+# OC Login :
+
+        oc login $AROAPISrvURL -u $kubeadminUsername -p $kubeadminPassword
+        oc login $AROAPISrvURL -u $kubeadminUsername -p $kubeadminPassword --loglevel=9
+
+# Get Nodes :
+
+        oc get nodes
+        oc get nodes -w
+        oc get machine -n openshift-machine-api -l machine.openshift.io/cluster-api-machineset=<MachineSet-Name> -w
+        oc get node -l node-role.kubernetes.io/master
+        oc get node -l node-role.kubernetes.io/worker
+        oc describe node <NODE_NAME>
+
+
+# Print Supported API Resources :
+
+        oc api-resources -o wide
+
+
+# Print the namespaced/non-namespaced Supported API Resources :
+
+        oc api-resources --namespaced=true -o wide
+        oc api-resources --namespaced=false -o wide
+
+
+# Resource Usage (CPU/Memory) :
+
+        oc adm top node
+        oc adm top node <NODE_NAME>
+        oc adm top pod -A
+        oc adm top pod <POD_NAME> --containers
+
+
+# Get OpenShift versions that you can upgrade to :
+
+        oc adm upgrade
+
+        echo ; oc get clusterversion version -o jsonpath='{.status.availableUpdates[*].version}' ; echo ; echo
+
+
+# Get Configured Upgrade Channel :
+
+        oc get clusterversion -o jsonpath='{.items[].spec.channel}{"\n"}'
+
+
+# Patch Upgrade Channel : (in this example we patch it into stable-4.12 , which can be changed based on the recommended upgrade path)
+
+        oc patch clusterversion version --type merge -p '{"spec": {"channel": "stable-4.12"}}'
+
+
+# Upgrade OpenShift Cluster :
+
+        oc adm upgrade --to=<New-Version>
+
+
+# Upgrade OpenShift to the Latest version :
+
+        oc adm upgrade --to-latest=true
+
+
+# Get Node Logs :
+
+        oc adm node-logs <NODE_NAME>
+        oc adm node-logs --role master
+        oc adm node-logs --role worker
+        oc adm node-logs --role=master --path=openshift-apiserver # Collect logss from /var/log/openshift-apiserver on Master Nodes
+
+
+# OC Node Operations :
+
+        oc adm cordon <NODE_NAME>
+        oc adm uncordon <NODE_NAME>
+        oc adm drain <NODE_NAME>
+        oc adm drain <NODE_NAME> --pod-selector=<Pod_Selector>
+        oc adm drain <NODE_NAME> --force=true
+        oc adm drain <NODE_NAME> --timeout=5s
+        oc adm drain <NODE_NAME> --delete-local-data=true --ignore-daemonsets=true
+
+
+# Get Cluster Operator :
+
+        oc get co
+        oc get co -w
+        oc get co <ClusterOperatorName> -oyaml
+
+
+# Debug/Access Node :
+
+        oc debug --image registry.redhat.io/rhel8/support-tools:latest node/<NODE_NAME>
+        oc debug node/<NODE_NAME>
+
+# Get StorageClass :
+
+        oc get sc
+        oc get sc <StorageClass-Name> -oyaml
+
+# List PVC / Block Devices on node hosting the pod :
+
+        oc debug node/<NODE_NAME>
+        chroot /host
+        lsblk | grep -i pvc
+
+
+# Get/Delete User/Idenitity :
+
+
+        oc get user | grep -i <Username>
+        oc get identity | grep -i <UserName>
+
+        oc delete user <Username>
+        oc delete identity <IDPName>:XXXXXX
+
+
+# Get ARO Cluster Service Principal Information such as client_id, client_secret, ... etc :
+
+        echo ; oc get secret azure-credentials -n kube-system --template='{{range $k, $v := .data }} {{ $k }} {{ " : " }} {{ $v | base64decode }} {{ "\n" }} {{ end }}' ; echo
+
+        echo ; oc get secret azure-cloud-provider -n kube-system --template='{{range $k, $v := .data }} {{ $k }} {{ " : " }} {{ $v | base64decode }} {{ "\n" }} {{ end }}' ; echo
+
+
+
+# Get ARO Cluster Service Principal Information from inside ARO VM :
+
+        crictl pods --namespace openshift-cluster-csi-drivers
+        find /var/lib/kubelet/pods/*/volumes/* -name merged-cloud-config
+        grep -iR aadClientSecret /var/lib/kubelet/pods/*/volumes/*/merged-cloud-config
+
+
+
+# Get the configured AAD Authentication Secret :
+
+        oc get oauth cluster -oyaml
+
+        oc get oauth cluster -oyaml | grep -A1 clientSecret:
+
+        echo ; oc get secret XXXXXX  -n openshift-config --template='{{range $k, $v := .data }} {{ $k }} {{ " : " }} {{ $v | base64decode }} {{ "\n" }} {{ end }}' ; echo
+
+
+
+# Get/Scale MachineSets :
+
+        oc get machinesets -n openshift-machine-api
+        oc get machinesets <MachineSet-Name> -n openshift-machine-api -oyaml
+        oc scale --replicas=<NumberofReplicas> machineset <MachineSet-Name> -n openshift-machine-api
+
+
+# Get/Delete Machines :
+
+        oc get machines -n openshift-machine-api
+        oc get machines -n openshift-machine-api -w
+        oc delete machines <Machine-Name> -n openshift-machine-api
+
+
+# Get ClusterVersion :
+
+        oc get clusterversion
+        oc get clusterversion -oyaml
+
+
+# Get Routes :
+
+        oc get routes -A
+        oc get routes oauth-openshift -n openshift-authentication
+        oc get routes console -n openshift-console
+        oc get route -n openshift-image-registry
+
+
+# Get API Request Count and deprecated ones :
+
+        oc get apirequestcounts
+        oc get apirequestcounts -o jsonpath='{range .items[?(@.status.removedInRelease!="")]}{.status.removedInRelease}{"\t"}{.status.requestCount}{"\t"}{.metadata.name}{"\n"}{end}'
+
+
+# Get API Server Config and serving certificate :
+
+        oc get apiservers.config.openshift.io cluster -oyaml
+
+
+# Get OAuth configuration :
+
+        oc get OAuth
+        oc get OAuth cluster -oyaml
+
+
+# Get etcd/scheduler health :
+
+        oc get cs
+
+
+# Get CSI Drivers :
+
+        oc get clustercsidrivers
+        oc get csidrivers
+        oc get pods -n openshift-cluster-csi-drivers  -o wide
+        oc get pods -n openshift-cluster-storage-operator -l app=csi-snapshot-controller -o wide
+
+
+# Get/Delete Namespaces :
+
+        oc get ns
+        oc delete project <Namespace> --force --grace-period=0
+
+
+# Get all objects in particular namespace :
+
+        oc get all -n <Namespace>
+
+
+# Get all pods for openshift namespaces that are not running neither completed :
+
+        oc get pods -A | grep "^openshift-" | grep -v 'Running\|Completed'
+
+
+# Get Container Images for existing Pods, which can be used to check whitelisting :
+
+        oc get pods -A -o jsonpath="{.items[*].spec.containers[*].image}" | sed 's/ /\n/g' | sort | uniq ; echo ; echo Domains: ; echo ;kubectl get pods -A -o jsonpath="{.items[*].spec.containers[*].image}" | sed 's/ /\n/g' | cut -d "/" -f1 | sort | uniq ; echo
+
+
+# Get all Pods running on a specific Node :
+
+        oc get pods --all-namespaces --field-selector spec.nodeName=<NODE_NAME>  --field-selector status.phase=Running
+
+
+# Get objects within openshift-managed-upgrade-operator namespace :
+
+        oc get all -n openshift-managed-upgrade-operator
+
+
+# Get Cluster AutoScaler :
+
+        oc get ClusterAutoscaler -oyaml
+
+
+# Get Cluster Network :
+
+        oc get clusternetworks
+
+
+# Get Events :
+
+        oc get events -A
+        oc get events -n <Namespace>
+
+
+# Check etcd Healthy Members :
+
+        oc get etcd -o=jsonpath='{range .items[0].status.conditions[?(@.type=="EtcdMembersAvailable")]}{.message}{"\n"}'
+
+
+# Get etcd pods :
+
+        oc get pods -n openshift-etcd -l app=etcd -o wide
+
+
+# Get OC Client Version :
+
+        oc version
+
+
+# Get Security Context Constraints :
+
+        oc get scc
+
+
+# Get Authentication Pods :
+
+        oc get pods -l 'app in (oauth-openshift, openshift-oauth-apiserver, authentication-operator)' -A -o wide
+
+
+# Restart Authentication Pods :
+
+        oc delete pods -l 'app in (oauth-openshift, openshift-oauth-apiserver)' -A
+        oc get pods -l 'app in (oauth-openshift, openshift-oauth-apiserver)' -A -o wide
+
+
+# Get API Server Pods :
+
+        oc get pod -n openshift-kube-apiserver -l app=openshift-kube-apiserver
+        oc get pod -n openshift-kube-apiserver --field-selector spec.nodeName=XXXX-master-X
+
+
+# Get ARO Cluster :
+
+        oc get cluster cluster -oyaml
+        oc get cluster.aro.openshift.io cluster -o custom-columns=NAME:.metadata.name,RESOURCE_ID:.spec.resourceId
+        oc get cm cluster-config-v1 -n kube-system -o yaml
+
+
+# Scale Deployment :
+
+        oc scale  deployment <Deployment-Name> --replicas=<Replicas-Number>
+
+
+# Get Machine Config Pools :
+
+        oc get mcp
+        oc get mcp worker -oyaml
+        oc get mcp master -oyaml
+
+
+# Check Cluster Existing Certificates :
+
+
+        echo -e "NAMESPACE\tNAME\tEXPIRY" && oc get secrets -A -o go-template='{{range .items}}{{if eq .type "kubernetes.io/tls"}}{{.metadata.namespace}}{{" "}}{{.metadata.name}}{{" "}}{{index .data "tls.crt"}}{{"\n"}}{{end}}{{end}}' | while read namespace name cert; do echo -en "$namespace\t$name\t"; echo $cert | base64 -d | openssl x509 -noout -enddate; done | column -t
+
+
+# Collect Logs using Must-Gather tool :
+
+
+        oc adm must-gather
+        oc adm must-gather --dest-dir=/local/directory # Store Collected information in a specific directory
+
+
+
+
+# List every single namespaced resource in a namespace, Replace ${NAMESPACE} with the correct namespace (or omit -n ${NAMESPACE} for the current namespace):
+
+        oc get $(oc api-resources --namespaced=true --verbs=list -o name | awk '{printf "%s%s",sep,$0;sep=","}')  --ignore-not-found -n ${NAMESPACE} -o=custom-columns=KIND:.kind,NAME:.metadata.name --sort-by='kind'
+
+
+
+# Patch MachineSet so new provisioned nodes have certain label such as disk=ultrassd
+
+        oc patch machineset  XXXXXXX -n openshift-machine-api --type='json' -p='[{"op":"add","path":"/spec/template/spec/metadata/labels", "value":{"disk":"ultrassd"}}]'
+
+
+# Patch MachineSet to enable ultraSSDCapability :
+
+        oc patch machineset XXXXXX -n openshift-machine-api --type='merge' --patch='{"spec": { "template": { "spec": { "providerSpec": { "value": { "ultraSSDCapability": "Enabled"}}}}}}'
+
+
+
+#Renew Secret/Certificate for OLM :
+
+        # Check Secret Expiration :
+
+                oc get secret packageserver-service-cert -o json -n openshift-operator-lifecycle-manager | jq -r '.data | .["tls.crt"]' | base64 -d | openssl x509 -noout -dates
+
+        # Backup the current secret :
+
+                oc get secret packageserver-service-cert -o json -n openshift-operator-lifecycle-manager > packageserver-service-cert.yaml
+
+        # Delete the Secret :
+
+                oc delete secret packageserver-service-cert -n openshift-operator-lifecycle-manager
+
+        # Check Secret Expiration again :
+
+                oc get secret packageserver-service-cert -o json -n openshift-operator-lifecycle-manager | jq -r '.data | .["tls.crt"]' | base64 -d | openssl x509 -noout -dates
+
+
+
+
+# List Users with Cluster-Admin Cluster Role :
+
+        oc get clusterrolebindings -o json | jq '.items[] | select(.roleRef.name=="cluster-admin")' | jq '.subjects[0].name'
+
+
+
+
+# lists all the pods in all namespaces that are either in Pending or Failed phase and are experiencing ImagePullBackOff or ErrImagePull states, along with the namespace, pod name, the reason for the state, and the image that it's trying to pull :
+
+        oc get pods --all-namespaces -o json | jq -r '.items[] | select(.status.phase == "Pending" or .status.phase == "Failed") | "\(.metadata.namespace) \(.metadata.name) \(.status.containerStatuses[]? | select(.state.waiting.reason == "ImagePullBackOff" or .state.waiting.reason == "ErrImagePull") | .state.waiting.reason) \(.spec.containers[].image)"'
+
+
+
+
+######
+
+# Inspect Particular Namespace :
+
+# Important Note : This will bring Secrets as well , which should be removed before Sharing output content.
+
+
+        oc adm inspect namespace/<NameSpace>
+
+
+######

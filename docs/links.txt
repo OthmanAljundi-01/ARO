@@ -21,6 +21,11 @@
 	https://github.com/Azure/ARO-RP/blob/master/pkg/validate/dynamic/dynamic.go#L36
 
 
+# Azure RedHat OpenShift ARO-RP Validation Error :
+
+	https://github.com/Azure/ARO-RP/blob/bf7ddde2eff0ea008f7d88c843abbc8dcea11850/pkg/validate/dynamic/dynamic.go#L33
+
+
 
 # Azure RedHat OpenShift ARO-RP Cloud Erros :
 
@@ -32,6 +37,30 @@
 # ARO Cluster Deny Assignment Rules :
 
 	https://github.com/Azure/ARO-RP/blob/master/pkg/cluster/deploybaseresources_additional.go#L22
+
+
+
+
+# Azure RedHat OpenShift ARO-RP Route Table Permission Validation :
+
+	https://github.com/Azure/ARO-RP/blob/aae3ca8030722a95eabc900a87edc46bf1ca9a86/pkg/api/validate/dynamic/dynamic.go#L217
+
+
+
+# Azure RedHat OpenShift ARO-RP VNET Permission Validation :
+
+	https://github.com/Azure/ARO-RP/blob/aae3ca8030722a95eabc900a87edc46bf1ca9a86/pkg/api/validate/dynamic/dynamic.go#L164
+
+
+# Azure RedHat OpenShift ARO-RP DuplicateClientID Error : 
+	
+	https://github.com/Azure/ARO-RP/blob/aae3ca8030722a95eabc900a87edc46bf1ca9a86/pkg/frontend/validate.go#L63
+
+
+
+# Azure RedHat OpenShift ARO-RP DuplicateDomain Error : 
+
+	https://github.com/Azure/ARO-RP/blob/aae3ca8030722a95eabc900a87edc46bf1ca9a86/pkg/util/dns/dns.go#L52
 
 
 
@@ -127,10 +156,3 @@
 
 	https://access.redhat.com/solutions/6540431
 
-# Route Table Permission Validation :
-
-	https://github.com/Azure/ARO-RP/blob/aae3ca8030722a95eabc900a87edc46bf1ca9a86/pkg/api/validate/dynamic/dynamic.go#L217
-
-# VNET Permission Validation :
-
-	https://github.com/Azure/ARO-RP/blob/aae3ca8030722a95eabc900a87edc46bf1ca9a86/pkg/api/validate/dynamic/dynamic.go#L164

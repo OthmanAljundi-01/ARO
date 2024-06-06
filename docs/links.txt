@@ -127,4 +127,10 @@
 
 	https://access.redhat.com/solutions/6540431
 
+# Route Table Permission Validation :
 
+	https://github.com/Azure/ARO-RP/blob/aae3ca8030722a95eabc900a87edc46bf1ca9a86/pkg/api/validate/dynamic/dynamic.go#L217
+
+# VNET Permission Validation :
+
+	https://github.com/Azure/ARO-RP/blob/aae3ca8030722a95eabc900a87edc46bf1ca9a86/pkg/api/validate/dynamic/dynamic.go#L164

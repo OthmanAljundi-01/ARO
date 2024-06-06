@@ -1,0 +1,221 @@
+
+
+
+# List ARO Clusters :
+
+	az aro list -o table
+	az aro list -g $ARORG -o table 
+	
+	
+# Show ARO Cluster Information :
+	
+	az aro show -n $AROCluster -g $ARORG
+
+# Show ARO Cluster URI
+
+	RSURI=`az aro show -n $AROCluster -g $ARORG  --query id -o tsv`
+
+# Show ARO APIServer Information ( IP , URL , Visibility )
+
+	AROAPISrvIP=`az aro show -n $AROCluster -g $ARORG  --query apiserverProfile.ip -o tsv`
+	AROAPISrvURL=`az aro show -n $AROCluster -g $ARORG  --query apiserverProfile.url -o tsv`
+	AROAPISrvType=`az aro show -n $AROCluster -g $ARORG  --query apiserverProfile.visibility -o tsv`
+	
+# Show ARO Console URL
+
+	AROConsoleURL=`az aro show -n $AROCluster -g $ARORG  --query consoleProfile.url -o tsv`
+
+
+# Show ARO Service Principle ID
+
+	AROSPID=`az aro show -n $AROCluster -g $ARORG  --query servicePrincipalProfile.clientId -o tsv`
+
+# Show ARO Cluster Version
+
+	AROVersion=`az aro show -n $AROCluster -g $ARORG  --query clusterProfile.version -o tsv`
+
+
+# Show ARO Cluster Infrastructure Resource Group ID :
+
+	ARONodeRGID=`az aro show -n $AROCluster -g $ARORG  --query clusterProfile.resourceGroupId -o tsv`
+	ARONodeRG=`echo $ARONodeRGID | cut -d"/" -f5`
+
+
+# Show ARO ingressProfile IP
+
+	AROIngressIP=`az aro show -n $AROCluster -g $ARORG  --query ingressProfiles[].ip -o tsv`
+
+
+# List Resources inside ARO Cluster Infrastructure Resource Group :
+
+	az resource list -g $ARONodeRG -o table
+
+# Show ARO Cluster Credentials
+
+	az aro list-credentials -n $ARORG -g $ResourceGroup
+	kubeadminPassword=$(az aro list-credentials --name $ARORG --resource-group $ResourceGroup --query=kubeadminPassword -o tsv)
+	kubeadminUsername=$(az aro list-credentials --name $ARORG --resource-group $ResourceGroup --query=kubeadminUsername -o tsv)
+
+
+# Update ARO Cluster
+
+	az aro update -n $AROCluster -g $ARORG
+
+
+# List Virtual Machines (Master and Worker)
+
+	az resource list -g $ARONodeRG --resource-type "Microsoft.Compute/virtualMachines" -o table
+
+
+# List Load Balancers
+
+	az resource list -g $ARONodeRG --resource-type "Microsoft.Network/loadBalancers" -o table
+
+
+# List Network Security Group NSG
+
+	az resource list -g $ARONodeRG --resource-type "Microsoft.Network/networkSecurityGroups" -o table
+
+
+# List Storage Accounts
+
+	az resource list -g $ARONodeRG --resource-type "Microsoft.Storage/storageAccounts" -o table
+
+
+# List Public IP's
+
+	az resource list -g $ARONodeRG --resource-type "Microsoft.Network/publicIPAddresses" -o table
+
+# List disks (OS and Data)
+
+	az resource list -g $ARONodeRG --resource-type "Microsoft.Compute/disks" -o table
+
+
+
+# Delete ARO Cluster : 
+
+	az aro delete -n $AROCluster -g $ARORG --debug
+
+
+
+# Get Admin kubeconfig file of the cluster :
+
+	# download kubeconfig file in the current directory :
+	
+		az aro get-admin-kubeconfig -n $AROCluster -g $ARORG      
+	
+	# download kubeconfig file in a specific path with custom name :
+	
+		az aro get-admin-kubeconfig -n $AROCluster -g $ARORG -f <Download-Path/FileName>
+
+
+# Get kubeadmin credentials Username/Password :
+
+	az aro list-credentials -n $AROCluster -g $ARORG
+
+
+# Show ARO Cluster : 
+
+	az aro show -n $AROCluster -g $ARORG  
+	az resource show --ids ValueARORSID
+
+
+# Manually Update Cluster Certificates : ( Default Domains not custome one )
+
+	az aro update -n $AROCluster -g $ARORG --refresh-credentials
+
+
+# Create Private Cluster without Public IP : (Preview Feature) : https://learn.microsoft.com/en-us/azure/openshift/howto-create-private-cluster-4x#create-a-private-cluster-without-a-public-ip-address-preview
+
+	az feature register --namespace Microsoft.RedHatOpenShift --name UserDefinedRouting
+
+
+# Get Resource Providers for a subscription : 
+
+	az provider list -o table
+
+
+# Get ARO Supported Versions for Cluster Region :
+
+	az aro get-versions -l $AROLocation -o table
+
+
+# Update Cluster Service Principal :
+
+	az aro update -n $AROCluster -g ValueARORG --client-id ValueAROSPID --client-secret "ValueAROSPSecret" --debug
+
+
+
+# Login Script :
+
+########################################
+
+#!/bin/bash
+LOCATION=$AROLocation            # Location of your ARO cluster
+CLUSTER=$AROCluster              # Name of your ARO cluster
+RESOURCEGROUP=$ARORG             # Name of Resource Group where you want to create your ARO Cluster
+
+
+az account set --subscription ValueAROSubID
+
+az aro list -o table
+
+az aro list-credentials --name $CLUSTER --resource-group $RESOURCEGROUP
+
+kubeadminPassword=$(az aro list-credentials --name $CLUSTER --resource-group $RESOURCEGROUP --query=kubeadminPassword -o tsv)
+
+kubeadminUsername=$(az aro list-credentials --name $CLUSTER --resource-group $RESOURCEGROUP --query=kubeadminUsername -o tsv)
+
+AROAPISrvURL=$(az aro show -g $RESOURCEGROUP -n $CLUSTER --query apiserverProfile.url -o tsv)
+
+oc login $AROAPISrvURL -u $kubeadminUsername -p $kubeadminPassword
+
+AROConsoleURL=`az aro show -n $CLUSTER -g $RESOURCEGROUP  --query consoleProfile.url -o tsv` ; echo $AROConsoleURL
+
+
+########################################
+
+
+
+
+
+Recover AAD Login Issue :
+
+########################################
+
+
+# Create Case Directory :
+
+
+	mkdir caseValueCaseID
+	cd caseValueCaseID
+
+
+
+# Download Cluster kubeconfig file :
+
+export SUBSCRIPTION_ID=$AROSubID
+export RESOURCE_GROUP=$ARORG
+export CLUSTER=$AROCluster
+
+ 
+
+az rest --method post --url "/subscriptions/$SUBSCRIPTION_ID/resourceGroups/$RESOURCE_GROUP/providers/Microsoft.RedHatOpenShift/openShiftClusters/$CLUSTER/listAdminCredentials?api-version=2022-09-04" | jq -r '.kubeconfig' | base64 -d > kubeconfig
+
+
+# Check if kubeconfig file is downloaded 
+
+	ls -lrt kubeconfig
+
+# Create New OpenShift Secret :
+
+	oc --kubeconfig=kubeconfig create secret generic openid-client-secret-azuread02 --namespace openshift-config --from-literal=clientSecret="XXXXXX"
+
+# Edit OAuth with new secret (openid-client-secret-azuread02) : 
+
+	oc --kubeconfig=kubeconfig edit OAuth
+
+
+
+########################################
+

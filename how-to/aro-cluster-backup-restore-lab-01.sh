@@ -84,8 +84,8 @@ az role definition create --role-definition '{
 
 	AZURE_TENANT_ID=$(az account list --query '[?isDefault].tenantId' -o tsv)
 
-	AZURE_CLIENT_SECRET=$(az ad sp create-for-rbac --name "velero" --role $AZURE_ROLE --query 'password' -o tsv --scopes  /subscriptions/$AZURE_SUBSCRIPTION_ID/resourceGroups/$AZURE_BACKUP_RESOURCE_GROUP)
-	AZURE_CLIENT_ID=$(az ad sp list --display-name "velero" --query '[0].appId' -o tsv)
+	AZURE_CLIENT_SECRET=$(az ad sp create-for-rbac --name "veleroelevate" --role $AZURE_ROLE --query 'password' -o tsv --scopes  /subscriptions/$AZURE_SUBSCRIPTION_ID/resourceGroups/$AZURE_BACKUP_RESOURCE_GROUP)
+	AZURE_CLIENT_ID=$(az ad sp list --display-name "veleroelevate" --query '[0].appId' -o tsv)
 
 
 	cat << EOF  > ./credentials-velero.yaml

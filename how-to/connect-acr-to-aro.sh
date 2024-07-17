@@ -9,7 +9,7 @@ ACRRG="aro-acr-lab-rg"
 
 az group create --name $ACRRG --location westeurope
 
-az acr create --resource-group $ACRRG --name $ACRName --sku Premium --admin-enabled true --location westeurope --public-network-enabled
+az acr create --resource-group $ACRRG --name $ACRName --sku Premium --admin-enabled true --location australiacentral --public-network-enabled
 
 az acr list -o table
 

@@ -45,7 +45,7 @@
 2. Create Service Principal and Assign Proper Permissions :
 
 
-AZURE_ROLE=VeleroAro
+AZURE_ROLE=VeleroAroElevate
 az role definition create --role-definition '{
    "Name": "'$AZURE_ROLE'",
    "Description": "Velero related permissions to perform backups, restores and deletions",

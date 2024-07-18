@@ -58,14 +58,14 @@ List Log Analytics Workspace :
 Enable the monitoring extension on the connected ARC Cluster : ( Defult Log Analytics Workspace )
 
 
-	az k8s-extension create --name azuremonitor-containers --cluster-name AzureArcTest1 --resource-group AzureArcTest --cluster-type connectedClusters --extension-type Microsoft.AzureMonitor.Containers --configuration-settings amalogs.useAADAuth=false --debug
+	az k8s-extension create --name azuremonitor-containers --cluster-name AzureArcAROElevate01 --resource-group AzureArcAROElevate --cluster-type connectedClusters --extension-type Microsoft.AzureMonitor.Containers --configuration-settings amalogs.useAADAuth=false --debug
 
 
 
 Enable the monitoring extension on the connected ARC Cluster : ( Specific Log Analytics Workspace ) 
 # Added by :  Adam Sharif
 
-	az k8s-extension create --name azuremonitor-containers --cluster-name AzureArcTest1 --resource-group AzureArcTest --cluster-type connectedClusters --extension-type Microsoft.AzureMonitor.Containers --configuration-settings logAnalyticsWorkspaceResourceID=<armResourceIdOfExistingWorkspace> --configuration-settings amalogs.useAADAuth=false --debug
+	az k8s-extension create --name azuremonitor-containers --cluster-name AzureArcAROElevate01 --resource-group AzureArcAROElevate --cluster-type connectedClusters --extension-type Microsoft.AzureMonitor.Containers --configuration-settings logAnalyticsWorkspaceResourceID=<armResourceIdOfExistingWorkspace> --configuration-settings amalogs.useAADAuth=false --debug
 
 
 

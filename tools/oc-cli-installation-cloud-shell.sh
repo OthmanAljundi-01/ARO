@@ -15,6 +15,8 @@ wget https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-
 
 tar -zxvf openshift-client-linux.tar.gz -C $HomeDIR/opt/openshift/bin
 ls ../bin 
+cd ../bin
+
 
 
 echo Old Binaries Path : $PATH 
@@ -23,6 +25,7 @@ PATH=$PATH:$HomeDIR/opt/openshift/bin
 
 echo New Added Path : $PATH
 
+export PATH
 
 echo 'export PATH=$PATH:OCDIR' >> ~/.bashrc
 echo 'export PATH=$PATH:OCDIR' >> ~/.bash_profile

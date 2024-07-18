@@ -7,6 +7,9 @@ Enabling : https://learn.microsoft.com/en-us/azure/azure-monitor/containers/cont
 
 Disabling : https://learn.microsoft.com/en-us/azure/azure-monitor/containers/container-insights-enable-arc-enabled-clusters?tabs=create-cli%2Cverify-portal%2Cmigrate-cli#delete-extension-instance
 
+Continer Insights ConfigMap :
+
+	wget https://raw.githubusercontent.com/microsoft/Docker-Provider/ci_prod/kubernetes/container-azm-ms-agentconfig.yaml
 
 
 Connect the Cluster as ARC Cluster :

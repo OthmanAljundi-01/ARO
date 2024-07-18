@@ -30,9 +30,9 @@ Connect the Cluster as ARC Cluster :
 	# Login into the Cluster using oc cli or kubectl
 	#
 	
-	az group create --name AzureArcTest --location westeurope --output table
+	az group create --name AzureArcAROElevate --location uksouth --output table
 
-	az connectedk8s connect --name AzureArcTest1 --resource-group AzureArcTest --debug
+	az connectedk8s connect --name AzureArcAROElevate01 --resource-group AzureArcAROElevate --debug
 
 	az connectedk8s list -o table
 
@@ -42,6 +42,7 @@ Connect the Cluster as ARC Cluster :
 
 	oc get all -n azure-arc
 	oc get all -n azure-arc-release
+
 
 
 List Log Analytics Workspace :

@@ -77,10 +77,11 @@ az role definition create --role-definition '{
    
 
 
+
 	az aro list -o table 
 	
-	AROCluster="ARO Cluster Name"
-	ARORG="ARO Cluster Resource Group"
+	AROCluster="aro-elevate-07-cluster-04"
+	ARORG="aro-elevate-rg-04"
 
 	export AZURE_RESOURCE_GROUP=$(az aro show --name $AROCluster --resource-group $ARORG --query clusterProfile.resourceGroupId -o tsv | cut -d '/' -f 5,5)
 
@@ -92,15 +93,14 @@ az role definition create --role-definition '{
 	AZURE_CLIENT_ID=$(az ad sp list --display-name "veleroelevate" --query '[0].appId' -o tsv)
 
 
-	cat << EOF  > ./credentials-velero.yaml
-	AZURE_SUBSCRIPTION_ID=${AZURE_SUBSCRIPTION_ID}
-	AZURE_TENANT_ID=${AZURE_TENANT_ID}
-	AZURE_CLIENT_ID=${AZURE_CLIENT_ID}
-	AZURE_CLIENT_SECRET=${AZURE_CLIENT_SECRET}
-	AZURE_RESOURCE_GROUP=${AZURE_RESOURCE_GROUP}
-	AZURE_CLOUD_NAME=AzurePublicCloud
-	EOF
-
+cat <<EOF > ./credentials-velero.yaml
+AZURE_SUBSCRIPTION_ID=${AZURE_SUBSCRIPTION_ID}
+AZURE_TENANT_ID=${AZURE_TENANT_ID}
+AZURE_CLIENT_ID=${AZURE_CLIENT_ID}
+AZURE_CLIENT_SECRET=${AZURE_CLIENT_SECRET}
+AZURE_RESOURCE_GROUP=${AZURE_RESOURCE_GROUP}
+AZURE_CLOUD_NAME=AzurePublicCloud
+EOF
 
 
 3. Download and install Velero :

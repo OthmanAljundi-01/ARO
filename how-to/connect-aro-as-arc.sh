@@ -73,7 +73,7 @@ Enable the monitoring extension on the connected ARC Cluster : ( Specific Log An
 Show the Extension is installed :
 
 
-	az k8s-extension show --name azuremonitor-containers --cluster-name AzureArcTest1 --resource-group AzureArcTest --cluster-type connectedClusters -n azuremonitor-containers
+	az k8s-extension show --name azuremonitor-containers --cluster-name AzureArcAROElevate01 --resource-group AzureArcAROElevate --cluster-type connectedClusters -n azuremonitor-containers
 
 Get AMA Pods :
 

@@ -22,8 +22,8 @@
 1. Create Storage Account for storing backup :
 
 
-	AZURE_BACKUP_RESOURCE_GROUP=Velero_Backups
-	az group create -n $AZURE_BACKUP_RESOURCE_GROUP --location eastus
+	AZURE_BACKUP_RESOURCE_GROUP=Velero_Backups_elevate
+	az group create -n $AZURE_BACKUP_RESOURCE_GROUP --location uksouth
 
 	AZURE_STORAGE_ACCOUNT_ID="velero$(uuidgen | cut -d '-' -f5 | tr '[A-Z]' '[a-z]')"
 	az storage account create \
@@ -37,6 +37,9 @@
 
 	BLOB_CONTAINER=velero
 	az storage container create -n $BLOB_CONTAINER --public-access off --account-name $AZURE_STORAGE_ACCOUNT_ID
+
+
+
 
 
 2. Create Service Principal and Assign Proper Permissions :

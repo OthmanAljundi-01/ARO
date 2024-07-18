@@ -76,6 +76,7 @@ az role definition create --role-definition '{
    }'
    
 
+
 	az aro list -o table 
 	
 	AROCluster="ARO Cluster Name"
